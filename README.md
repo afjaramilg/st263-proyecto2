@@ -21,14 +21,15 @@ Las subredes publicas dirigen el trafico a internet al internet gateway, mientra
     - SQL: secgroup-web-proyecto2
 
 - `secgroup-natgw-proyecto2`, INBOUND:
-    - HTTPS: Anywhere
+    - HTTP: Anywhere
     - HTTPS: Anywhere
     - SSH: Anywhere
 
 - `secgroup-web-proyecto2`, INBOUND: 
-    - HTTPS: Anywhere
+    - HTTP: Anywhere
     - HTTPS: Anywhere
     - SSH: Anywhere
+    - NFS: Anywhere (No lo usamos)
 
 - `all-access`
     - SSH: Anywhere

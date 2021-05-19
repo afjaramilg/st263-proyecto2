@@ -27,7 +27,7 @@ sudo gluster pool list
 # 5. (En ambos) Formatee el storage adicional que agrego al crear la instancia. Montelo en /mnt y agreguelo al fstab. Cree un directorio.
 sudo mkfs.xfs /dev/xvdb
 sudo mount /dev/xvdb /mnt
-sudo sh -c "echo '\n/dev/xvdb               /mnt     xfs    defaults,discard        0 1'>> /etc/fstab"
+sudo sh -c "echo '/dev/xvdb               /mnt     xfs    defaults,discard        0 1'>> /etc/fstab"
 sudo mkdir -p /mnt/gfsvolume/gv0
 
 
