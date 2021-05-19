@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# sources:
-# install gluster: https://docs.gluster.org/en/latest/Administrator-Guide/Setting-Up-Clients/
+# fuentes:
+# instalar gluster: https://docs.gluster.org/en/latest/Administrator-Guide/Setting-Up-Clients/
 # set up: https://docs.gluster.org/en/latest/Administrator-Guide/Setting-Up-Clients/
 # fstab options: https://docs.gluster.org/en/latest/Administrator-Guide/Setting-Up-Clients/
-# open ports for group (make sure to use the 3.4 or later ports): https://gluster.readthedocs.io/en/release-3.7.0-1/Troubleshooting/troubleshootingFAQ/
+# ports (usar puertos para 3.4 or later): https://gluster.readthedocs.io/en/release-3.7.0-1/Troubleshooting/troubleshootingFAQ/
 
-
-# 1. create two servers, both with security group "all-access". on BOTH of them add a storage unit in the add storage section, make sure to tick the "delete with termination" box.
+# 1. Cree un grupo de seguridad que incluya los puertos necesarios para usar gluster y SSH. 
+# 2. Cree dos instancias, en dos regiones distintas, las dos pertenecientes al grupo de seguridad mencionado. A continuacion, incluimos las IP's de las instancias que nosotros usamos. IP1 esta en US-East-1b, IP2 esta en US-East-1b
 IP1=10.0.4.157
 IP2=10.0.1.181
 
-# 2. install gluster
+# 3. Instale gluster en ambos servidores y encender el daemon
 sudo apt install software-properties-common -y
 sudo add-apt-repository ppa:gluster/glusterfs-7
 sudo apt update

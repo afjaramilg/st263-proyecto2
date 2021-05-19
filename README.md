@@ -14,10 +14,29 @@ Las subredes publicas dirigen el trafico a internet al internet gateway, mientra
 - `natgw-ue1b-proyecto2` para la US East 1b
 
 ### Grupos de seguridad
-- `secgroup-bhost-proyecto2`, INBOUND: SSH - Anywhere
-- `secgroup-db-proyecto2`, INBOUND: SQL - secgroup-web-proyecto2
-- `secgroup-natgw-proyecto2`, INBOUND: HTTPS - Anywhere, HTTPS - Anywhere, SSH - Anywhere
-- `secgroup-web-proyecto2`, INBOUND: HTTPS - Anywhere, HTTPS - Anywhere, SSH - Anywhere
+- `secgroup-bhost-proyecto2`, INBOUND: 
+    - SSH: Anywhere
+
+- `secgroup-db-proyecto2`, INBOUND: 
+    - SQL: secgroup-web-proyecto2
+
+- `secgroup-natgw-proyecto2`, INBOUND:
+    - HTTPS: Anywhere
+    - HTTPS: Anywhere
+    - SSH: Anywhere
+
+- `secgroup-web-proyecto2`, INBOUND: 
+    - HTTPS: Anywhere
+    - HTTPS: Anywhere
+    - SSH: Anywhere
+
+- `all-access`
+    - SSH: Anywhere
+    - 24007: Anywhere
+    - 24008: Anywhere
+    - 38465 - 38467: Anywhere
+    - 49152 - 49155: Anywhere
+
 
 
 ## La base de datos
@@ -46,7 +65,7 @@ El AMI para las intancias de wordpress en el auto-scaling group se baso en una i
 ### La persistencia en la capa de archivos
 Inicialmente teniamos la intencion de poner toda los archivos de wordpress en un mount-point de un bucket de S3. De esta forma, multiples instancias compartirian los archivos. Sin embargo, el 14/05/2021, esta solucion fallo y no nos quedo claro por que. El error que producia era 403, a pesar de muchos intentos de darle todos los permisos o setearlos a lo que era indicado por la documentacion en linea. 
 
-Decidimos entonces realizar la persistencia de datos con EFS y montamos este sistema de archivos al crear la instancia de la que se saco el AMI del servidor de wordpress. Se monto en `/mnt/efs/wordpress`.
+Decidimos entonces realizar la persistencia de datos con EFS. Lamentablemente, tuvimos demasiados problemas montando EFS, incluso despues de incluir los cambios recomendados en la guia. Por este motivo optamos por utilizar GlusterFS y configurarlo nosotros mismos. 
 
 Aun asi incluimos S3 en nuestra solucion, quizas de manera un poco redundante: Usamos un plugin de wordpress que copia los archivos cargados a un bucket S3. Para hacer esto tuvimos que darle a la instancia otro rol AMI llamado `iam-role-s3-proyecto2` con permisos `AmazonS3FullAccess` y creamos un bucket llamado `s3-bucket-ssl-proyecto2`.
 
@@ -55,7 +74,7 @@ En el directorio `instance-config` se encontraran los siguientes archivos:
 - `docker-compose.yml`, es el archivo encargado del setup del contenedor de wordpress. Tiene las credenciales requeridas para conectarse a la base de datos. 
 - `install-cmds.sh` instala docker, docker-compose, y s3fs. Este ultimo es un vestigio de cuando queriamos usarlo para contener todos los archivos wordpress, decidimos incluirlo aun asi. 
 - `s3-ssl-mount.sh` es otro vestigio de el uso que le queriamos dar a s3 inicialmente, este script se hubiera programado con crontab para correr cada vez que se iniciaba la maquina y montar manualmente el bucket s3.
-
+- `gluster-config.sh` contiene los comandos para configurar gluster y comentarios explicando cada uno. 
 
 ## Bastion hosts
 Las instancias que hacen las veces de bastion host (`bhost-ue1a/ue1b-proyecto2`) corren Amazon Linux y hacen parte de `secgroup-bhost-proyecto2`
