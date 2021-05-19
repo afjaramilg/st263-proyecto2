@@ -27,7 +27,7 @@ sudo gluster pool list
 # 5. (En ambos) Formatee el storage adicional que agrego al crear la instancia. Montelo en /mnt y agreguelo al fstab. Cree un directorio.
 sudo mkfs.xfs /dev/xvdb
 sudo mount /dev/xvdb /mnt
-sudo sh -c "echo "\n/dev/xvdb               /mnt     xfs    defaults,discard        0 1">> /etc/fstab"
+sudo sh -c "echo '\n/dev/xvdb               /mnt     xfs    defaults,discard        0 1'>> /etc/fstab"
 sudo mkdir -p /mnt/gfsvolume/gv0
 
 
@@ -42,6 +42,6 @@ sudo apt upgrade
 sudo apt install glusterfs-client
 sudo mkdir /mnt/gfsvol
 sudo mount -t glusterfs $IP1:/distributed_vol /mnt/gfsvol
-sudo sh -c "echo "$IP1:/distributed_vol /mnt/gfsvol  glusterfs defaults,_netdev 0 0">> /etc/fstab"
+sudo sh -c "echo '$IP1:/distributed_vol /mnt/gfsvol  glusterfs defaults,_netdev 0 0'>> /etc/fstab"
 
 
