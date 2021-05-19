@@ -7,7 +7,7 @@
 # ports (usar puertos para 3.4 or later): https://gluster.readthedocs.io/en/release-3.7.0-1/Troubleshooting/troubleshootingFAQ/
 
 # 1. Cree un grupo de seguridad que incluya los puertos necesarios para usar gluster y SSH. 
-# 2. Cree dos instancias, en dos regiones distintas, las dos pertenecientes al grupo de seguridad mencionado. A continuacion, incluimos las IP's de las instancias que nosotros usamos. IP1 esta en US-East-1b, IP2 esta en US-East-1b
+# 2. Cree dos instancias, en dos regiones distintas, las dos pertenecientes al grupo de seguridad mencionado. A continuacion, incluimos las IP's de las instancias que nosotros usamos. IP1 esta en US-East-1b, IP2 esta en US-East-1b. A AMBAS AGREGUELES UN DISCO DE STORAGE EXTRA CUANDO LE PIDA "Add Storage".
 IP1=10.0.4.157
 IP2=10.0.1.181
 
@@ -20,11 +20,11 @@ sudo apt install glusterfs-server
 sudo systemctl enable glusterd
 sudo systemctl start glusterd
 
-# 3. from the server that is going to be the primary, run this to check if it works
+# 4. Corra este comando desde IP1 (no estamos seguros si hace diferencia correrlo desde uno o el otro). Esto agregara IP2 al pool de nuestro FS. El siguiente comando deberia mostar ambas instancias como parte de la lista.  
 sudo gluster peer probe $IP2
 sudo gluster pool list
 
-# 4. mount the extra storage (and add it to fstab), format it first, this step is for both servers
+# 5. Formatee el storage adicional que agrego al crear la instancia. Montelo en /mnt y agreguelo 
 sudo mkfs.xfs /dev/xvdb
 sudo mount /dev/xvdb /mnt
 sudo sh -c "echo "\n/dev/xvdb               /mnt     xfs    defaults,discard        0 1">> /etc/fstab"
