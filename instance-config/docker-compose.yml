@@ -1,0 +1,17 @@
+version: '3.1'
+services:
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      #SSL version
+      WORDPRESS_DB_HOST: db-ssl-proyecto2.c4sp6alzaonv.us-east-1.rds.amazonaws.com
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: wordpress
+
+    volumes:
+      - /mnt/gfsvol/wordpress:/var/www/html
+
