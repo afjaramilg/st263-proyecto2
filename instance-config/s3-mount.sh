@@ -1,4 +1,5 @@
 #!/bin/sh
+# Este script se corria como un cronjob para montar automaticamente el bucket.  
 docker-compose down
 rm -rf /home/ec2-user/s3-mount
 mkdir /home/ec2-user/s3-mount

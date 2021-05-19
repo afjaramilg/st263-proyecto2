@@ -60,7 +60,7 @@ En el directorio `lb-config` encontrara los siguientes archivos:
 Como se puede ver, el template usa dos front-end, uno para http y otro para https, ambos con el mismo back-end. Esta configurado de forma tal que http redireccione a https. La encripcion con ssl ocurre en el load balancer, no en las instancias.
 
 ## La instancia de wordpress
-El AMI para las intancias de wordpress en el auto-scaling group se baso en una instancia corriendo Amazon Linux llamada `ssl2` que hace parte de `secgroup-web-proyecto2`.
+El AMI para las intancias de wordpress en el auto-scaling group se baso en una instancia corriendo Amazon Linux llamada `ami-template2` que hace parte de `secgroup-web-proyecto2` y `all-access`.
 
 ### La persistencia en la capa de archivos
 Inicialmente teniamos la intencion de poner toda los archivos de wordpress en un mount-point de un bucket de S3. De esta forma, multiples instancias compartirian los archivos. Sin embargo, el 14/05/2021, esta solucion fallo y no nos quedo claro por que. El error que producia era 403, a pesar de muchos intentos de darle todos los permisos o setearlos a lo que era indicado por la documentacion en linea. 

@@ -24,19 +24,19 @@ sudo systemctl start glusterd
 sudo gluster peer probe $IP2
 sudo gluster pool list
 
-# 5. Formatee el storage adicional que agrego al crear la instancia. Montelo en /mnt y agreguelo 
+# 5. (En ambos) Formatee el storage adicional que agrego al crear la instancia. Montelo en /mnt y agreguelo al fstab. Cree un directorio.
 sudo mkfs.xfs /dev/xvdb
 sudo mount /dev/xvdb /mnt
 sudo sh -c "echo "\n/dev/xvdb               /mnt     xfs    defaults,discard        0 1">> /etc/fstab"
 sudo mkdir -p /mnt/gfsvolume/gv0
 
 
-# 5. run these commands from the main server
+# 6. Corra estos comandos dese IP1. Esto crea el volumen compartido y lo activa. 
 sudo gluster volume create distributed_vol transport tcp $IP1:/mnt/gfsvolume/gv0 $IP2:/mnt/gfsvolume/gv0
 sudo gluster volume start distributed_vol
 
 
-# 6. at this point create a new server, the client, the instance where the AMI will come from. I am not sure if the "all-access" group is required but include it along with the web group.
+# 7. Los siguientes comandos se corren en el servidor web de donde se va a sacar el AMI. Primero se instala el client de gluster. Despues se crea un mount point para GlusterFS. Se monta el file system y se agrega el fstab. 
 sudo apt update
 sudo apt upgrade
 sudo apt install glusterfs-client
@@ -44,5 +44,4 @@ sudo mkdir /mnt/gfsvol
 sudo mount -t glusterfs $IP1:/distributed_vol /mnt/gfsvol
 sudo sh -c "echo "$IP1:/distributed_vol /mnt/gfsvol  glusterfs defaults,_netdev 0 0">> /etc/fstab"
 
-# bob is, in fact, your uncle
 
