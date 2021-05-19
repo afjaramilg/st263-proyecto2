@@ -1,4 +1,22 @@
 # Especificacion tecnica
+## Requisitos Funcionales
+- El sistema valida el registro del usuario, para permitir el ingreso y salida del sistema por medio de sesiones.  
+- El sistema permite a los usuarios registrarse para poder gestionar la información de su ubicación. 
+- El sistema permite al usuario crear, modificar, consultar y eliminar mensajes en los foros, chats, entre otros. 
+- El sistema permite al usuario visualizar los diferentes contenidos de las asignaturas de Ingeniería de Sistemas de EAFIT. 
+
+## Requisitos No Funcionales
+- El sistema redirecciona la carga (peticiones o conexiones) al servidor web que se encuentre con mayor disponibilidad. 
+- El sistema cuenta con certificado SSL generado por HAproxy. 
+- El sistema funciona con una estructura cliente servidor. 
+- El sistema cuenta con un menú de opciones que hace intuitiva la interacción. 
+
+## Atributos de Calidad
+- Seguridad: El transporte de los mensajes es encriptado bajo un estándar de seguridad global que permite la transferencia de datos cifrados, con el protocolo SSL.  
+- Usabilidad: El sistema mejora la facilidad de interacción con el usuario con un menú de opciones y mensajes claros e intuitivos 
+- Tolerancia a fallos: El sistema sigue funcionando correctamente en caso de fallo de uno o varios de sus componentes. 
+- Escalabilidad: El sistema cuenta con una disposición y adaptación al manejar un crecimiento de usuarios sin perder la calidad del servicio
+
 ## Configuracion de la red
 Se tiene una sola VPC, `proyecto2`
 
