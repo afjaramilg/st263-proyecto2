@@ -22,6 +22,10 @@ sudo mkdir /etc/haproxy/certs
 sudo sh -c "cat /etc/letsencrypt/live/lambda.cf/fullchain.pem /etc/letsencrypt/live/lambda.cf/privkey.pem > /etc/letsencrypt/live/lambda.cf/lambda.cf.pem"
 sudo cp /etc/letsencrypt/live/lambda.cf/lambda.cf.pem /etc/haproxy/certs/lambda.cf.pem
 
+# Mueva el archivo haproxy.cfg.template a /etc/haproxy/
+sudo mv haproxy.cfg.template /etc/haproxy
+
+# Cree un cronjob para periodicamente correr haproxy-script.rb, este actualizara la lista de instancias en HAproxy. 
 
 
 
